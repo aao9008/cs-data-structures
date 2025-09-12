@@ -1,0 +1,40 @@
+[INFIX]
+a+b*c
+(a+b)*c
+a^b^c
+a+(b*c-(d/e^f)*g)*h
+(a+b+c+d)
+x*y+z
+ab+          
+a++b         
+(a+b
+a   +   B          
+
+(A + B) * (C ^(D-E) + F) - G
+A + (((B-C) * (D-E) + F)/G) ^ (H-J)
+
+[PREFIX]
+*+abc
+-+a*b^-^cde+f*ghi
+^a^bc
+/+ab
++a            
++1b           
++*ab
+
+++A - * ^BCD/ + EF * GHI
++-^ABC * D ** EFG
+
+[POSTFIX]
+ab+c*
+abc^^
+abc*+
+ab+cde+*+
+ab+          
+ab          
+a1b+ 
+
+AB + C -
+ABC +-
+AB -C + DEF -+^
+ABCDE -+ ^*EF*-

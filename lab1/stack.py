@@ -1,16 +1,19 @@
-# Class: Stack
-# Purpose: Represent a last-in, first-out (LIFO) data structure 
-#          where elements are inserted and removed only from the top.
-# Attributes:
-#    items (list) – internal Python list used to store stack elements
-# Methods:
-#    push(item) – insert an item to the top of the stack
-#    pop() – remove and return the top item from the stack
-#    peek() – return the top item without removing it
-#    isEmpty() – check whether the stack is empty
-# Exceptions:
-#    Raises Empty when attempting to pop from an empty stack
-class stack:
+# Program Name: stack.py
+# Author: Alfredo Ormeno Zuniga
+# Date: 09/11/2025
+# Purpose:
+#   This module provides a custom implementation of a stack data structure
+#   using Python’s built-in list type as the underlying container.
+#
+# Functions:
+#   - push(item):      Adds an item to the top of the stack.
+#   - pop():           Removes and returns the item at the top of the stack.
+#                      Raises an Empty exception if the stack is empty.
+#   - peek():          Returns the top item without removing it from the stack.
+#   - isEmpty():       Returns True if the stack contains no items, False otherwise.
+#   - size():          Returns the current number of items in the stack.
+#
+class Stack:
     def __init__(self):
         # Initialize an empty list to store stack items
         self.items = [] 
@@ -38,7 +41,7 @@ class stack:
     def pop(self):
         # remove and return the top item from the stack
         # raise an error if the stack is empty
-        if self.is_empty():
+        if self.isEmpty():
             raise Empty("stack is empty")
         
         # get the last item
@@ -57,7 +60,7 @@ class stack:
     # Output: The top item if the stack is not empty, 
     #         otherwise None
     def peek(self):
-        if self.empty():
+        if self.isEmpty():
             return None
         return self.items[-1]
     # END peek
@@ -73,6 +76,10 @@ class stack:
     def isEmpty(self):
         return len(self.items) == 0
     # END isEmpty
+
+    def size(self):
+        return len(self.items)
+    # END len
 # END Stack
 
 # Class: Empty

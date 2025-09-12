@@ -1,0 +1,118 @@
+[INFIX]
+
+Infix:   a+b*c
+Prefix:  +a*bc
+
+Infix:   (a+b)*c
+Prefix:  *+abc
+
+Infix:   a^b^c
+Prefix:  ^a^bc
+
+Infix:   a+(b*c-(d/e^f)*g)*h
+Prefix:  +a*-*bc*/d^efgh
+
+Infix:   (a+b+c+d)
+Prefix:  +++abcd
+
+Infix:   x*y+z
+Prefix:  +*xyz
+
+Infix:   ab+
+Prefix:  +ab
+
+Infix:   a++b
+Error: Invalid operator sequence: two operators in a row near '+'
+
+Infix:   (a+b
+Error: Unmatched opening parenthesis
+
+Infix:   a   +   B
+Prefix:  +aB
+
+Infix:   (A + B) * (C ^(D-E) + F) - G
+Prefix:  -*+AB+^C-DEFG
+
+Infix:   A + (((B-C) * (D-E) + F)/G) ^ (H-J)
+Prefix:  +A^/+*-BC-DEFG-HJ
+
+
+[PREFIX]
+
+Prefix:  *+abc
+Infix:   ((a+b)*c)
+Postfix: ab+c*
+
+Prefix:  -+a*b^-^cde+f*ghi
+Infix:   ((a+(b*(((c^d)-e)^(f+(g*h)))))-i)
+Postfix: abcd^e-fgh*+^*+i-
+
+Prefix:  ^a^bc
+Infix:   (a^(b^c))
+Postfix: abc^^
+
+Prefix:  /+ab
+Error: Invalid prefix expression: not enough operands for operator '/'
+
+Prefix:  +a
+Error: Invalid prefix expression: not enough operands for operator '+'
+
+Prefix:  +1b
+Error: Invalid character in expression: '1'
+
+Prefix:  +*ab
+Error: Invalid prefix expression: not enough operands for operator '+'
+
+Prefix:  ++A - * ^BCD/ + EF * GHI
+Infix:   ((A+(((B^C)*D)-((E+F)/(G*H))))+I)
+Postfix: ABC^D*EF+GH*/-+I+
+
+Prefix:  +-^ABC * D ** EFG
+Infix:   (((A^B)-C)+(D*((E*F)*G)))
+Postfix: AB^C-DEF*G**+
+
+
+[POSTFIX]
+
+Postfix: ab+c*
+Infix:   ((a+b)*c)
+Prefix:  *+abc
+
+Postfix: abc^^
+Infix:   (a^(b^c))
+Prefix:  ^a^bc
+
+Postfix: abc*+
+Infix:   (a+(b*c))
+Prefix:  +a*bc
+
+Postfix: ab+cde+*+
+Infix:   ((a+b)+(c*(d+e)))
+Prefix:  ++ab*c+de
+
+Postfix: ab+
+Infix:   (a+b)
+Prefix:  +ab
+
+Postfix: ab
+Error: Expression must contain at least one operator
+
+Postfix: a1b+
+Error: Invalid character in expression: '1'
+
+Postfix: AB + C -
+Infix:   ((A+B)-C)
+Prefix:  -+ABC
+
+Postfix: ABC +-
+Infix:   (A-(B+C))
+Prefix:  -A+BC
+
+Postfix: AB -C + DEF -+^
+Infix:   (((A-B)+C)^(D+(E-F)))
+Prefix:  ^+-ABC+D-EF
+
+Postfix: ABCDE -+ ^*EF*-
+Infix:   ((A*(B^(C+(D-E))))-(E*F))
+Prefix:  -*A^B+C-DE*EF
+
