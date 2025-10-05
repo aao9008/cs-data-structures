@@ -41,7 +41,7 @@ class TowersOfHanoi:
         self.smallest_disk_location = "source"
         self.move_number = 1
 
-        self.initialize_source_peg
+        self.initialize_source_peg()
 
 
     def reset(self, num_disks = None):
@@ -82,73 +82,62 @@ class TowersOfHanoi:
             self.source.push(i)
 
 
-    def verify_solution(self, moves_queue=None, print_moves=True):
-        """Verifies the move count and optionally prints all moves.
+    def _format_moves_string(self):
+        """Helper to format the moves list into a string WITHOUT destroying the queue."""
+        if self.moves.is_empty():
+            return "No moves were made.\n"
 
-        This method checks if a queue of moves contains the correct number of
-        steps for the puzzle's disk count (2^n - 1). If no queue is
-        provided, it defaults to verifying the instance's `self.moves` queue.
+        # Use a temporary queue to preserve and restore the original moves.
+        temp_queue = Queue()  # Assumes your custom class is named Queue
+        
+        output_lines = ["Moves List:"]
+        move_count = 0
+
+        # 1. Process the original queue: read each item and save it to the temp queue.
+        while not self.moves.is_empty():
+            move = self.moves.dequeue()
+            move_count += 1
+            output_lines.append(f"  {move_count}: {move}")
+            temp_queue.enqueue(move)
+
+        # 2. Restore the original queue by moving all items back.
+        while not temp_queue.is_empty():
+            self.moves.enqueue(temp_queue.dequeue())
+            
+        return "\n".join(output_lines) + "\n"
+
+
+    def verify_solution(self, display_moves=False):
+        """
+        Verifies the move count and returns a formatted report string.
 
         Args:
-            moves_queue (Queue, optional): A queue of moves to verify.
-                If None, the instance's `self.moves` queue is used.
-                Defaults to None.
-            print_moves (bool, optional): If True, the list of moves will be
-                printed to the console. Defaults to True.
-
-        Side Effects:
-            If `print_moves` is True, the provided `moves_queue` will be emptied
-            by the display helper function.
-
+            display_moves (bool): If True, the formatted list of moves will
+                                  be included in the returned report string.
         Returns:
-            None
+            str: A multi-line string containing the verification report.
         """
-        if moves_queue == None:
-            moves_queue = self.moves
+        report_parts = []
+    
+        # Get the move count
+        move_count = self.moves.size() 
 
-        # 1. Get the move count FIRST, before the queue is potentially emptied.
-        move_count = len(moves_queue)
-        
-        # 2. Conditionally call the (destructive) printing function.
-        if print_moves:
-            self._display_moves(moves_queue)
+        # Conditionally generate the moves string if the flag is set.
+        if display_moves:
+            report_parts.append(self._format_moves_string())
 
-        # 3. Perform and print the verification.
         expected_moves = 2**self.num_disks - 1
-        
-        print(f"\nTotal moves: {move_count}")
-        print(f"Expected moves: {expected_moves}")
+
+        report_parts.append(f"Total Moves: {move_count}")
+        report_parts.append(f"Expected Moves: {expected_moves}")
 
         if move_count == expected_moves:
-            print("Result: SUCCESS\n")
+            report_parts.append("Result: SUCCESS\n")
         else:
-            print("Result: FAILED\n")
+            report_parts.append("Result: FAILED\n")
+        
+        return "\n".join(report_parts)
 
-
-    def _display_moves(self, moves_queue):
-        """Displays all moves from a queue in a numbered list.
-
-        This method iterates through the provided queue and prints each move
-        in a formatted, numbered list.
-
-        Args:
-            moves_queue (Queue): The queue containing the moves to be displayed.
-
-        Side Effects:
-            This function is DESTRUCTIVE. It empties the provided queue by
-            calling dequeue() on each item.
-
-        Returns:
-            None
-        """
-
-        print("--- List of Moves ---")
-        move_count = 0
-        while not moves_queue.is_empty():
-            move_count += 1
-            print(f"  {move_count}: {moves_queue.dequeue()}")
-        print("---------------------")
-    
     
     def solve_iterative(self):
         """
