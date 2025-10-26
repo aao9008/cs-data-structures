@@ -1,7 +1,8 @@
 from node import Node
 from typing import Iterator
+from tree import Tree
 
-class BinaryTree:
+class BinaryTree(Tree):
 
     def __init__(self, root_node: Node = None):
         """
@@ -18,6 +19,25 @@ class BinaryTree:
         # Calculate size ONCE during initialization for efficient len()
         self._size = self._count_nodes_recursive(self._root)
     
+
+    def _count_nodes_recursive(self, node):
+        """
+        Private helper to recursively count nodes *only* for initialization.
+        
+        Args:
+            node (Optional[Node]): The current node to start counting from.
+        
+        Returns:
+            int: The count of nodes in the subtree rooted at 'node'.
+        """
+        if node is None:
+            return 0
+        
+        # 1 (for the current node) + count of all nodes in left/right subtrees
+        return 1 + self._count_nodes_recursive(node.left) + self._count_nodes_recursive(node.right)
+    
+    # --- Concrete Implementations of Abstract Methods from Tree---
+
     def root(self):
         """
         Public accessor for root node.
@@ -30,19 +50,6 @@ class BinaryTree:
         """
 
         return self._root
-    
-
-    def is_empty(self):
-        """
-        Checks if the tree contains any nodes
-        
-        Args: None
-        
-        Returns:
-            bool: True if the tree is empty, False otherwise
-        """
-
-        return self._root is None
     
 
     def __len__(self) -> int:
@@ -60,22 +67,68 @@ class BinaryTree:
         """
         return self._size
 
-    def _count_nodes_recursive(self, node: Optional[Node]) -> int:
+    def num_children(self, node: Node) -> int:
         """
-        Private helper to recursively count nodes *only* for initialization.
+        Return the number of children that Node 'node' has.
         
         Args:
-            node (Optional[Node]): The current node to start counting from.
+            node: current node
         
-        Returns:
-            int: The count of nodes in the subtree rooted at 'node'.
+        Returns: 
+            int: The total number of children that Node 'node' has. 
         """
-        if node is None:
-            return 0
-        
-        # 1 (for the current node) + count of all nodes in left/right subtrees
-        return 1 + self._count_nodes_recursive(node.left) + self._count_nodes_recursive(node.right)
+        count = 0
+        if node.left is not None:
+            count += 1
+        if node.right is not None:
+            count += 1
+        return count
+
+    def children(self, node: Node) -> Iterator[Node]:
+        """
+        Generate an iteration of Nodes representing 'node's' children.
+
+        Args: 
+            node
+
+        Returns:
+            Iterator
+        """
+        if node.left is not None:
+            yield node.left
+        if node.right is not None:
+            yield node.right
     
+
+    # --- Methods that remain abstract (to be implemented by a subclass) ---
+
+    def parent(self, node: Node):
+        """
+        Return the parent of Node 'node' (or None if 'node' is root).
+        
+        Note: This is an O(N) operation as it requires a traversal.
+        A subclass could make this O(1) by adding parent pointers
+        to the Node class. We leave it abstract.
+        """
+        raise NotImplementedError('parent method must be implemented by subclass')
+    
+    def add(self, value):
+        """
+        Abstract method for adding a value to the tree.
+        (Inherited from Tree)
+        """
+        raise NotImplementedError('add method must be implemented by subclass')
+    
+    def remove(self, value):
+        """
+        Abstract method for removing a value from the tree.
+        (Inherited from Tree)
+        """
+        raise NotImplementedError('remove method must be implemented by subclass')
+
+    
+    
+    # --- Methods specific to BinaryTree ---
 
     def preorder_traversal(self) -> Iterator[Node]:
         """
@@ -103,17 +156,3 @@ class BinaryTree:
             yield node  # 1. Visit Root
             yield from self._preorder_recursive(node.left)  # 2. Traverse Left
             yield from self._preorder_recursive(node.right) # 3. Traverse Right
-    
-    # --- Abstract Method ---
-    
-    def add(self, value) -> None:
-        """
-        Abstract method for adding a node.
-        
-        The generic BinaryTree does not know how to add nodes.
-        A subclass (like a HuffmanTree) must implement this.
-        
-        Note: Our HuffmanTree will NOT use this, as it's built
-        once via a different algorithm.
-        """
-        raise NotImplementedError('add method must be implemented by subclass')
