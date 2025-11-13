@@ -1,4 +1,9 @@
 """
+frequency_table_generator.py
+
+Author: Alfredo Ormeno Zuniga
+Date: 10/27/25
+
 A utility module to generate a frequency table from a text string.
 """
 from collections import defaultdict
@@ -6,9 +11,6 @@ from collections import defaultdict
 def generate_frequency_table(text: str) -> dict[str, int]:
     """
     Generates a frequency table from an input text string.
-
-    This function:
-    - Is case-sensitive
 
     Args:
         text (str): The input string to analyze.

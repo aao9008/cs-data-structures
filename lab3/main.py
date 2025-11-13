@@ -1,19 +1,18 @@
 """
-Huffman Coding Lab - Main Entry Point
+main.py
+Author: Alfredo Ormeno Zuniga
+Date: 10/27/25
 
 This program orchestrates the entire Huffman coding process.
 It acts as the single entry point, passing command-line arguments
 and global configuration to the huffman_logic module.
-
-To run:
-    python huffman_lab.py path/to/your/input.txt
 """
 
 import sys
 from processing_logic import run_huffman_orchestrator
 
-# This is the only "logic" that stays in the main script,
-# as it's considered global configuration.
+
+# Frequency table to be used, if one is not provided as part of the input. 
 STANDARD_FREQUENCY_TABLE = {
     "A": 19,"B": 16,"C": 17,"D": 11,"E": 42,"F": 12,
     "G": 14,"H": 17,"I": 16,"J": 5,"K": 10,"L": 20,

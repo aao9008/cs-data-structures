@@ -1,8 +1,34 @@
+"""
+binary_tree.py
+
+Author: Alfredo Ormeno Zuniga
+Date: 10/27/25
+
+Defines the BinaryTree class, a foundational concrete implementation of the abstract Tree.
+
+This module provides the BinaryTree class, which serves as a base
+structure for more specialized binary trees. It implements the core,
+non-order-specific logic for a node-based binary tree, including
+traversal, size calculation, and child-related methods.
+
+It relies on the `Node` class for its structure and implements the
+`Tree` abstract base class interface.
+"""
 from node import Node
 from typing import Iterator
 from tree import Tree
 
 class BinaryTree(Tree):
+    """
+    A concrete implementation of the `Tree` abstract class for a binary tree.
+
+    Provides common, non-order-specific binary tree functionality
+    like traversals, child access, and O(1) size calculation.
+
+    Attributes:
+        _root (Optional[Node]): The root node of the tree.
+        _size (int): The total number of nodes in the tree.
+    """
 
     def __init__(self, root_node: Node = None):
         """
@@ -25,7 +51,7 @@ class BinaryTree(Tree):
         Private helper to recursively count nodes *only* for initialization.
         
         Args:
-            node (Optional[Node]): The current node to start counting from.
+            node (Node): The current node to start counting from.
         
         Returns:
             int: The count of nodes in the subtree rooted at 'node'.
@@ -127,8 +153,8 @@ class BinaryTree(Tree):
         raise NotImplementedError('remove method must be implemented by subclass')
 
     
-    
     # --- Methods specific to BinaryTree ---
+    
 
     def preorder_traversal(self) -> Iterator[Node]:
         """
@@ -150,7 +176,10 @@ class BinaryTree(Tree):
         Private helper to recursively yield nodes in preorder.
 
         Args:
-            node (Optional[Node]): The current node to visit.
+            node (Node): The current node to visit.
+
+        Returns:
+            None
         """
         if node is not None:
             yield node  # 1. Visit Root

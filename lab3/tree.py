@@ -1,4 +1,9 @@
 """
+tree.py
+
+Author: Alfredo Ormeno Zuniga
+Date: 10/27/25
+
 A general-purpose, abstract base class (ABC) for a Tree.
 
 This module provides the base `Tree` class, which defines the

@@ -44,12 +44,23 @@ class TowersOfHanoi:
         self.initialize_source_peg()
 
 
+
     def reset(self, num_disks = None):
         """
-        Resets the puzzle.
+        Resets the puzzle to its initial state
 
-        If num_disks is provided, it resets the puzzle with the new number of disks. 
-        If not, it resets with the current number of disks.  
+         This method re-initializes all puzzle components, including the pegs,
+        the moves queue, and the state trackers. It can be used to either
+        restart the puzzle with a new number of disks or to simply reset the
+        current puzzle to its starting configuration.
+
+        Args:
+            num_disks (int, optional): The number of disks for the reset puzzle.
+                If not provided or None, the puzzle is reset using the current
+                `self.num_disks` value. Defaults to None.  
+
+        Returns: 
+            None
         """
         if num_disks is None: 
             # User did not provide a new value, so use the existing one. 
@@ -67,6 +78,8 @@ class TowersOfHanoi:
 
         self.initialize_source_peg()
 
+
+
     def initialize_source_peg(self):
         """
         Initializes the source peg with all the disks.
@@ -83,7 +96,17 @@ class TowersOfHanoi:
 
 
     def _format_moves_string(self):
-        """Helper to format the moves list into a string WITHOUT destroying the queue."""
+        """Formats the moves queue into a multi-line, human-readable string.
+
+        This is a non-destructive helper method that reads the contents of the
+        `self.moves` queue and formats them into a numbered list. It carefully
+        preserves the original queue by using a temporary queue to store and
+        then restore all the moves after they have been read.
+
+        Returns:
+            str: A formatted string containing the complete list of moves, or a
+                message indicating that no moves were made if the queue is empty.
+        """
         if self.moves.is_empty():
             return "No moves were made.\n"
 

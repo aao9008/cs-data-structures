@@ -52,6 +52,7 @@ class HuffmanTree(BinaryTree):
         else:
             # Initialize an empty tree
             super().__init__(None)
+            
     
     def construct_tree(self, frequency_table: Dict[str, int]):
         """
@@ -123,6 +124,7 @@ class HuffmanTree(BinaryTree):
         
         # The last node in the queue is the root of the tree
         return pq.pop()
+    
 
     def _build_encoding_map_recursive(self, node, code_so_far: str):
         """
@@ -178,6 +180,7 @@ class HuffmanTree(BinaryTree):
         
         # Return the new, sorted dictionary.
         return sorted_dict
+    
     
     def get_indented_tree_string(self):
         """

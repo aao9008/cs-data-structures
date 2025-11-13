@@ -1,6 +1,10 @@
-# huffman_logic.py
 """
-This module contains the core processing logic for the Huffman Coding lab.
+processing_logic.py
+Author: Alfredo Ormeno Zuniga
+Date: 10/27/25
+
+This module contains the core processing logic for the main driver program.
+
 It handles:
 1. Parsing command-line arguments
 2. Parsing the input file
@@ -98,7 +102,10 @@ def parse_input_file(filepath: str) -> Tuple[Dict[str, int], List[str], List[str
             elif current_section == "freq":
                 parts = line.split()
                 if len(parts) == 2 and parts[1].isdigit():
-                    frequencies[parts[0].upper()] = int(parts[1])
+                    if parts[0].upper() == "SPACE":
+                        frequencies[' '] = int(parts[1])
+                    else:
+                        frequencies[parts[0].upper()] = int(parts[1])
             elif current_section == "encode":
                 phrases_to_encode.append(line)
             elif current_section == "decode":
@@ -117,7 +124,9 @@ def write_output_file(filename: str, content: str):
     except Exception as e:
         print(f"Error writing to {filename}: {e}")
 
+
 # --- Core Logic Functions ---
+
 
 def setup_decoding_tree(file_freq_table: Dict[str, int], 
                         standard_table: Dict[str, int]) -> Tuple[HuffmanTree, str]:
@@ -138,9 +147,30 @@ def setup_decoding_tree(file_freq_table: Dict[str, int],
         name = "standard frequency table"
     return tree, name
 
+
 def generate_tree_report(tree: HuffmanTree, output_filepath: str):
     """
     Generates the tree_info.txt content and writes it to a file.
+
+    This function compiles a comprehensive, human-readable report for a
+    given HuffmanTree object. The report is structured into three
+    distinct sections:
+
+    1.  **Indented Tree Structure:** A visual representation of the
+        tree's hierarchy (from `get_indented_tree_string`).
+    2.  **Preorder Traversal String:** A serialized string representation
+        of the tree (from `get_preorder_string`).
+    3.  **Encoding Map:** A complete list of all characters and their
+        corresponding binary Huffman codes (from `get_encoding_map`).
+
+    Args:
+        tree (HuffmanTree): 
+            The fully constructed Huffman tree object to be documented.
+        output_filepath (str): 
+            The file path where the generated report will be saved.
+
+    Returns:
+        None
     """
     print("Generating tree report...")
     content = ""
@@ -153,11 +183,25 @@ def generate_tree_report(tree: HuffmanTree, output_filepath: str):
         content += f"{char}: {code}\n"
     write_output_file(output_filepath, content)
 
+
 def process_encoding_tasks(phrases: List[str], 
                            file_freq_table: Optional[Dict[str, int]], 
                            output_filepath: str):
     """
     Processes all encoding tasks and writes them to a file.
+
+    Args:
+        phrases (List[str]): 
+            A list of string phrases to be encoded.
+        file_freq_table (Optional[Dict[str, int]]):
+            A pre-computed frequency table (char -> int). If None,
+            a new table is generated for each phrase individually.
+            If provided, this single table is used for all phrases.
+        output_filepath (str): 
+            The file path where the encoding results will be written.
+
+    Returns:
+        None
     """
     print("Processing encoding tasks...")
     encode_results = []
@@ -174,6 +218,13 @@ def process_encoding_tasks(phrases: List[str],
             encode_results.append("\n--- Encoding Map ---")
             for char, code in temp_tree.get_encoding_map().items():
                 encode_results.append(f"'{char}': {code}")
+            
+            encode_results.append("\n---Huffman Tree Structure---")
+            encode_results.append(temp_tree.get_indented_tree_string())
+
+            encode_results.append("\n---Huffman Preorder Traversal String---")
+            encode_results.append(temp_tree.get_preorder_string())
+
             encode_results.append("===================================END OF PHRASE===================================\n")
     else:
         print(" -> Using file's frequency table for all phrases.")
@@ -189,7 +240,26 @@ def process_decoding_tasks(codes: List[str],
                            table_name: str, 
                            output_filepath: str):
     """
-    Processes all decoding tasks using the provided tree and writes to a file.
+    This function iterates through a list of encoded binary strings ("codes")
+    and decodes each one using the *single* provided `decoding_tree`.
+    The original code, the decoded text, and the name of the table used
+    are formatted and written to the specified output file.
+
+    Args:
+        codes (List[str]):
+            A list of binary code strings (e.g., "01101") to be decoded.
+        decoding_tree (HuffmanTree):
+            A pre-constructed HuffmanTree object to be used for decoding.
+            This same tree is applied to all codes in the list.
+        table_name (str):
+            A descriptive name for the source of the `decoding_tree`
+            (e.g., "file_freq_table"). This is used for annotation
+            in the output file.
+        output_filepath (str):
+            The file path where the decoding results will be written.
+
+    Returns:
+        None
     """
     print("Processing decoding tasks...")
     decode_results = []

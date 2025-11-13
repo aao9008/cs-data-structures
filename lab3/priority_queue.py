@@ -1,5 +1,6 @@
 """
 AI-Generated Module for Huffman Priority Queue.
+AI Model: Google Gemini
 
 This module provides a PriorityQueue class tailored
 for building a Huffman Encoding Tree.

@@ -1,0 +1,60 @@
+Number of Disks: 5
+
+Total Moves: 31
+Expected Moves: 31
+Result: SUCCESS
+Recursive solution run time: 0.000058 seconds
+Iterative solution run time: 0.000071 seconds
+
+==================================================
+
+Number of Disks: 10
+
+Total Moves: 1023
+Expected Moves: 1023
+Result: SUCCESS
+Recursive solution run time: 0.001183 seconds
+Iterative solution run time: 0.001782 seconds
+
+==================================================
+
+Number of Disks: 15
+
+Total Moves: 32767
+Expected Moves: 32767
+Result: SUCCESS
+Recursive solution run time: 0.038950 seconds
+Iterative solution run time: 0.059080 seconds
+
+==================================================
+
+Number of Disks: 20
+
+Total Moves: 1048575
+Expected Moves: 1048575
+Result: SUCCESS
+Recursive solution run time: 1.302250 seconds
+Iterative solution run time: 1.924440 seconds
+
+==================================================
+
+Number of Disks: 25
+
+Total Moves: 33554431
+Expected Moves: 33554431
+Result: SUCCESS
+Recursive solution run time: 41.493734 seconds
+Iterative solution run time: 61.056493 seconds
+
+==================================================
+
+
+
+--- Performance Summary ---
+Disks      | Recursive Time (s)     | Iterative Time (s)    
+---------- | ---------------------- | ----------------------
+5          | 0.000058               | 0.000071              
+10         | 0.001183               | 0.001782              
+15         | 0.038950               | 0.059080              
+20         | 1.302250               | 1.924440              
+25         | 41.493734              | 61.056493             

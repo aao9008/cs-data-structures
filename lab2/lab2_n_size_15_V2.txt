@@ -1,0 +1,48 @@
+Number of Disks: 5
+
+Total Moves: 31
+Expected Moves: 31
+Result: SUCCESS
+Recursive solution run time: 0.000063 seconds
+Iterative solution run time: 0.000072 seconds
+
+==================================================
+
+Number of Disks: 10
+
+Total Moves: 1023
+Expected Moves: 1023
+Result: SUCCESS
+Recursive solution run time: 0.001227 seconds
+Iterative solution run time: 0.001792 seconds
+
+==================================================
+
+Number of Disks: 15
+
+Total Moves: 32767
+Expected Moves: 32767
+Result: SUCCESS
+Recursive solution run time: 0.040643 seconds
+Iterative solution run time: 0.059681 seconds
+
+==================================================
+
+Warning: Skipping puzzle with 20 disks. Due to the exponential complexity (O(2^n)), solving for more than 15 disks can take an exceptionally long time. Please use a smaller value.
+
+==================================================
+
+Skipping invalid line: 'test'
+==================================================
+
+Skipping invalid line: 'not a number'
+==================================================
+
+
+
+--- Performance Summary ---
+Disks      | Recursive Time (s)     | Iterative Time (s)    
+---------- | ---------------------- | ----------------------
+5          | 0.000063               | 0.000072              
+10         | 0.001227               | 0.001792              
+15         | 0.040643               | 0.059681              

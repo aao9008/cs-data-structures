@@ -46,10 +46,10 @@ python main.py <input_file> [tree_file] [encode_file] [decode_file]
 
 **Example:**
 ```
-Basic usage
+# Basic usage
 python main.py my_tasks.txt
 
-Usage with custom output filenames
+# Usage with custom output filenames
 python main.py my_tasks.txt tree.txt encoding.txt decoding.txt
 ```
 

@@ -34,6 +34,9 @@ class Queue:
 
         Args:
             cap (int): The new capacity for the internal array.
+        
+        Returns: 
+            None
         """
         old = self._data # Save a reference to the current list
 
@@ -66,6 +69,9 @@ class Queue:
 
         Args:
             item (any type): The value to be added.
+        
+        Returns:
+            None
         """
         # If the array is full, double its capacity.
         if self._size == len(self._data):
