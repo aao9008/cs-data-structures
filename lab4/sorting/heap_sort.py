@@ -1,3 +1,32 @@
+def heap_sort(arr):
+    """
+    Sorts 'arr' in-place using the HeapSort algorithm. It first
+    builds a max-heap, then repeatedly extracts the largest element 
+    (swapping it to the end of the list) and re-heapifying the rest.
+
+    Args:
+        arr (list): The list of numbers to be sorted.
+
+    Returns:
+        None
+    """
+    # Get the size of the array
+    n = len(arr)
+
+    # Heapify the array
+    _heapify(arr)
+
+    # Loop from the last node to the second element
+    for i in range(n - 1, 0, -1):
+
+        # Swap the root (largest element) with the last element of the *current* heap at index i
+        arr[0], arr[i] = arr[i], arr[0]
+
+        # The heap is now smaller. Its new size is 'i'. 
+        # Call _percolate_down on the new root (index 0) to fix heap property. 
+        _percolate_down(arr, 0, i)
+
+
 def _percolate_down(arr, node_index, arr_size):
     """
     Moves the node at 'node_index' down to its correct position
