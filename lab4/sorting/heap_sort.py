@@ -1,3 +1,13 @@
+"""
+Author: Alfredo Ormeno Zuniga
+Date: 11/15/25
+
+This file implements the iterative, in-place HeapSort
+algorithm. It provides the main 'heap_sort' function
+as well as its helper functions '_heapify' and
+'_percolate_down'.
+"""
+
 def heap_sort(arr):
     """
     Sorts 'arr' in-place using the HeapSort algorithm. It first

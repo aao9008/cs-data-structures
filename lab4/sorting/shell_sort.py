@@ -1,3 +1,12 @@
+"""
+Author: Alfredo Ormeno Zuniga
+Date: 11/15/25
+
+This file implements the iterative, in-place ShellSort
+algorithm. It provides the main 'shell_sort' function
+and its helper '_insertion_sort_interleaved'.
+"""
+
 def shell_sort(arr, increments):
     """
     Sorts 'arr' in-place using shell sort algorithm
